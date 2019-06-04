@@ -9,4 +9,6 @@ class TokenResponse (
                      @SerializedName("last_name") val lastName: String,
                      @SerializedName("doctor_id") val doctorId: Int,
                      @SerializedName("patient_id") val patientId: Int,
+                     @SerializedName("doctor") val doctor: DoctorResponse,
+                     @SerializedName("patient") val patient: PatientResponse,
                      @SerializedName("is_doctor") val isDoctor: Int = 0)

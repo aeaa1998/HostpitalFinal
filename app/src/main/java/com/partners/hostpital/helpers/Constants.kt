@@ -7,4 +7,6 @@ object Constants {
     val fullName = "full_name"
     val doctorId = "doctor_id"
     val patientId = "patient_id"
+    val patientUser = "patient_user"
+    val doctorUser = "doctor_user"
 }

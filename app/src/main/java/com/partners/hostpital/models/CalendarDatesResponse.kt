@@ -7,7 +7,7 @@ import java.util.*
 
 class CalendarDatesResponse (@SerializedName("id") val id: Int,
                       @SerializedName("reason") val reason: String,
-                      @SerializedName("date") val date: Date,
+                      @SerializedName("date") val date: java.util.Date,
                       @SerializedName("status") val status: Int,
                       @SerializedName("doctor_id") val doctorId: Int,
                       @SerializedName("patient_id") val patientId: Int,

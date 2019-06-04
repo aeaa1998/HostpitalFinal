@@ -1,5 +1,6 @@
 package com.partners.hostpital
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -16,6 +17,7 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import com.partners.hostpital.api.API
+import com.partners.hostpital.api.Hostpital
 import com.partners.hostpital.helpers.Constants
 import com.partners.hostpital.models.CalendarDatesResponse
 import com.partners.hostpital.requests.UpdateDateRequest
@@ -34,6 +36,7 @@ class Selected_date : Fragment() {
 
 
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         selectedDate = Selected_dateArgs.fromBundle(requireArguments()).selectedDateFragment
@@ -103,11 +106,9 @@ class Selected_date : Fragment() {
             }
         }
 
-        val parser = SimpleDateFormat("yyyy-MM-dd")
-        val formatter = SimpleDateFormat("dd.MM.yyyy")
 
-        val output = formatter.format(parser.parse(selectedDate?.date.toString()))
-        dateV.text= output
+        val dateFormatted = Hostpital.newFormatTime.format(selectedDate?.date)
+        dateV.text = "Fecha: $dateFormatted"
 
 
 

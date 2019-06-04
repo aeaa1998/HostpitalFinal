@@ -21,9 +21,6 @@ import io.paperdb.Paper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -43,11 +40,9 @@ class DoctorsFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_doctors, container, false)
 
         calendarInstance = Calendar.getInstance()
-        recycler = v.findViewById(R.id.recycler_row_doctors)
-        recycler.layoutManager = LinearLayoutManager(context)
-        recycler.adapter = DoctorsAdapter()
+        setRecycler(v)
         recycler.adapter?.notifyDataSetChanged()
-        GetAllDoctors()
+        getAllDoctors()
         val b = container?.rootView?.findViewById<View>(R.id.floating_btn_doctor)
         b?.visibility = View.GONE
         b?.isClickable = false
@@ -57,11 +52,18 @@ class DoctorsFragment : Fragment() {
     }
     override fun onResume() {
         super.onResume()
-        GetAllDoctors()
+        getAllDoctors()
         recycler.adapter?.notifyDataSetChanged()
 
     }
-    fun GetAllDoctors(){
+
+    private fun setRecycler(v: View){
+        recycler = v.findViewById(R.id.recycler_row_doctors)
+        recycler.layoutManager = LinearLayoutManager(context)
+        recycler.adapter = DoctorsAdapter()
+    }
+
+    private fun getAllDoctors(){
         val service = API.request()
         val response = service.allDoctors(Paper.book().read(Constants.userId), Paper.book().read(Constants.isDoctor))
 
@@ -84,6 +86,7 @@ class DoctorsFragment : Fragment() {
             }
         })
     }
+
     inner class DoctorsAdapter: RecyclerView.Adapter<CustomViewHolder>() {
         override fun getItemCount() = doctors.size
 

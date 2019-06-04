@@ -1,5 +1,6 @@
 package com.partners.hostpital
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
@@ -7,94 +8,125 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.partners.hostpital.api.Hostpital
+import com.partners.hostpital.helpers.Constants
+import com.partners.hostpital.models.CalendarDatesResponse
+import com.partners.hostpital.models.PatientResponse
+import com.partners.laboratorio7.Adapters.ViewHolder.CustomViewHolder
+import io.paperdb.Paper
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [SelectedPatientFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [SelectedPatientFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class SelectedPatientFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-    private var listener: OnFragmentInteractionListener? = null
+    lateinit var selectedPatient: PatientResponse
+    lateinit var patientDoctorDates: List<CalendarDatesResponse>
+    lateinit var patientImage: ImageView
+    lateinit var patientEmail: TextView
+    lateinit var patientName: TextView
+    lateinit var patientDatesRecycler: RecyclerView
+    lateinit var patientDateButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_selected_patient, container, false)
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+        selectedPatient = SelectedPatientFragmentArgs.fromBundle(requireArguments()).selectedPatient
+        val v = inflater.inflate(R.layout.fragment_selected_patient, container, false)
+        patientDoctorDates = selectedPatient.dates.filter {
+            it.doctorId ==  Paper.book().read(Constants.doctorId) && it.status > 1
         }
+        getAllViews(v)
+        setAllViews(container)
+        setRecycler(v)
+        patientDateButton.setOnClickListener {
+            val action = SelectedPatientFragmentDirections.actionSelectedPatientFragmentToMakeRequestDateFragment(Paper.book().read(Constants.doctorUser), selectedPatient)
+            NavHostFragment.findNavController(requireParentFragment()).navigate(action)
+        }
+        patientDatesRecycler.adapter?.notifyDataSetChanged()
+
+
+        // Inflate the layout for this fragment
+        return v
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
+    override fun onResume() {
+        super.onResume()
+        patientDatesRecycler.adapter?.notifyDataSetChanged()
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+
+    private fun getAllViews(v : View){
+        patientImage = v.findViewById(R.id.patient_image)
+        patientEmail = v.findViewById(R.id.patient_email_single)
+        patientName = v.findViewById(R.id.patient_name_single)
+        patientDateButton = v.findViewById(R.id.patient_date_request_button)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SelectedPatientFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                SelectedPatientFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
+
+    @SuppressLint("SetTextI18n")
+    private fun setAllViews(container: ViewGroup?){
+        patientEmail.text = selectedPatient.email
+        patientName.text = "${selectedPatient.firstName} ${selectedPatient.lastName}"
+        val b = container?.rootView?.findViewById<View>(R.id.floating_btn_doctor)
+        b?.visibility = View.GONE
+        b?.isClickable = false
     }
+
+
+    private fun setRecycler(v: View){
+        patientDatesRecycler = v.findViewById(R.id.recycler_selected_patient_dates)
+        patientDatesRecycler.layoutManager = LinearLayoutManager(context)
+        patientDatesRecycler.adapter = SelectedPatientDates()
+    }
+
+
+    inner class SelectedPatientDates: RecyclerView.Adapter<CustomViewHolder>() {
+        override fun getItemCount() = patientDoctorDates.size
+
+        @SuppressLint("SetTextI18n")
+        override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
+
+            val date = patientDoctorDates[position]
+            val view = holder.view
+            val nameTxtV =view.findViewById<TextView>(R.id.name_textview)
+            val reasonTxt =view.findViewById<TextView>(R.id.reason_text)
+            val dateTxt =view.findViewById<TextView>(R.id.date_text)
+            val button =view.findViewById<TextView>(R.id.date_calendar_btn)
+            val dateFormatted = Hostpital.newFormatTime.format(date.date)
+            dateTxt.text = "Fecha: $dateFormatted"
+            reasonTxt.text =  "Razón: ${date.reason}"
+
+            nameTxtV.text = if(Paper.book().read<Int>(Constants.isDoctor) == 1){
+                "Nombre: ${date.patient.firstName} ${date.patient.lastName}"
+            }else{
+                "Nombre: ${date.doctor.firstName} ${date.doctor.lastName}"
+            }
+            button.setOnClickListener {
+                val action = SelectedPatientFragmentDirections.actionSelectedPatientFragmentToSelectedDate(date)
+                NavHostFragment.findNavController(requireParentFragment()).navigate(action)
+            }
+
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, p1: Int): CustomViewHolder {
+            val layoutInflater = LayoutInflater.from(parent.context)
+            val cellForRow = layoutInflater.inflate(R.layout.muti_uses_row, parent, false)
+
+            return CustomViewHolder(cellForRow)
+
+        }
+
+    }
+
+
+
 }

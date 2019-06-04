@@ -1,14 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SelectedPatientFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ImageView
+        android:id="@+id/patient_image"
+        android:layout_width="137dp"
+        android:layout_height="137dp"
+        android:layout_marginStart="137dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="137dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_patient"
+        tools:src="@tools:sample/avatars"
+        />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/patient_name_single"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="130dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/holder"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patient_image" />
+
+    <TextView
+        android:id="@+id/patient_email_text"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/email"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patient_name_single" />
+
+    <TextView
+        android:id="@+id/patient_dates_text"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/menu_dates"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@+id/patient_name_single"
+        app:layout_constraintStart_toStartOf="@+id/patient_name_single"
+        app:layout_constraintTop_toBottomOf="@+id/patient_email_single" />
+
+    <TextView
+        android:id="@+id/patient_email_single"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/holder"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/patient_date_request_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/patient_email_text"
+        app:layout_constraintTop_toBottomOf="@+id/patient_email_text" />
+
+    <Button
+        android:id="@+id/patient_date_request_button"
+        android:layout_width="86dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/design_default_color_primary"
+        android:text="@string/doctor_date"
+        app:layout_constraintBottom_toBottomOf="@+id/patient_email_single"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/patient_email_single" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_selected_patient_dates"
+        android:layout_width="0dp"
+        android:layout_height="291dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/patient_dates_text" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

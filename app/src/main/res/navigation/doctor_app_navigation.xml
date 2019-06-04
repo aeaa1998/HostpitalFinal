@@ -78,8 +78,14 @@
         android:label="fragment_selected_patient"
         tools:layout="@layout/fragment_selected_patient" >
         <argument
-            android:name="selectedPatientId"
-            app:argType="integer" />
+            android:name="selectedPatient"
+            app:argType="com.partners.hostpital.models.PatientResponse" />
+        <action
+            android:id="@+id/action_selectedPatientFragment_to_selected_date"
+            app:destination="@id/selected_date" />
+        <action
+            android:id="@+id/action_selectedPatientFragment_to_makeRequestDateFragment"
+            app:destination="@id/makeRequestDateFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragment_doctors"
@@ -118,5 +124,17 @@
         <action
             android:id="@+id/action_datesFragment_to_selected_date"
             app:destination="@id/selected_date" />
+    </fragment>
+    <fragment
+        android:id="@+id/makeRequestDateFragment"
+        android:name="com.partners.hostpital.MakeRequestDateFragment"
+        android:label="fragment_make_request_date"
+        tools:layout="@layout/fragment_make_request_date" >
+        <argument
+            android:name="selectedDoctor"
+            app:argType="com.partners.hostpital.models.DoctorResponse" />
+        <argument
+            android:name="selectedPatient"
+            app:argType="com.partners.hostpital.models.PatientResponse" />
     </fragment>
 </navigation>

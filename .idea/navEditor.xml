@@ -145,6 +145,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="makeRequestDateFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="817" />
+                            <option name="y" value="-152" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="reportDateFragment">
                     <value>
                       <LayoutPositions>
@@ -177,6 +189,15 @@
                             <option name="x" value="500" />
                             <option name="y" value="12" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_selectedPatientFragment_to_selected_date">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

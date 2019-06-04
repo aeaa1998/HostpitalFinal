@@ -14,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.partners.hostpital.api.API
+import com.partners.hostpital.api.Hostpital
 import com.partners.hostpital.helpers.Constants
 import com.partners.hostpital.models.CalendarDatesResponse
 import com.partners.laboratorio7.Adapters.ViewHolder.CustomViewHolder
@@ -102,7 +103,8 @@ class MainFragment : Fragment() {
             val reasonTxt =view.findViewById<TextView>(R.id.reason_text)
             val dateTxt =view.findViewById<TextView>(R.id.date_text)
             val button =view.findViewById<TextView>(R.id.date_calendar_btn)
-            dateTxt.text = "Fecha: ${date.date}"
+            val dateFormatted = Hostpital.newFormatTime.format(date.date)
+            dateTxt.text = "Fecha: $dateFormatted"
             reasonTxt.text =  "Razón: ${date.reason}"
 
             nameTxtV.text = if(Paper.book().read<Int>(Constants.isDoctor) == 1){

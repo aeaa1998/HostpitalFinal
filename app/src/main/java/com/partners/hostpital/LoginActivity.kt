@@ -1,8 +1,10 @@
 package com.partners.hostpital
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -14,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.security.AccessController.getContext
 
 class LoginActivity : AppCompatActivity() {
 
@@ -23,14 +26,17 @@ class LoginActivity : AppCompatActivity() {
     }
     fun login(v: View){
         val service = API.request()
-        val response = service.oauthToken("password", 4, "25fIpbW5RNhc6nUHjHEnttfk7LcKf7oU39NfJ0bM", user_edit_txt.text.toString(), password_edit_txt.text.toString(), "*")
+        val response = service.oauthToken("password", 2, "Y71lD1p1mGe5T0yBCm5UjSfW6tqEUIBqssZwZq8d", user_edit_txt.text.toString(), password_edit_txt.text.toString(), "*")
 
 
         response.enqueue(object : Callback<TokenResponse> {
+            @SuppressLint("HardwareIds")
             override fun onResponse(call: Call<TokenResponse>, response: Response<TokenResponse>) {
 
                 if (response.body() != null && (response.code() < 300))
                 {
+
+                    val androidId = Settings.Secure.getString(this@LoginActivity.contentResolver, Settings.Secure.ANDROID_ID);
                     val responseToken = requireNotNull(response.body())
                     Log.d("token", response.body()?.accessToken)
                     Toast.makeText(this@LoginActivity, "Se ha logeado correctamente", Toast.LENGTH_LONG).show()
@@ -39,6 +45,8 @@ class LoginActivity : AppCompatActivity() {
                     Paper.book().write(Constants.userId, responseToken.id)
                     Paper.book().write(Constants.fullName, responseToken.firstName + ' ' +responseToken.lastName)
                     Paper.book().write(Constants.patientId, responseToken.patientId)
+                    Paper.book().write(Constants.patientUser, responseToken.patient)
+                    Paper.book().write(Constants.doctorUser, responseToken.doctor)
 
                     if (responseToken.isDoctor == 1){
                         Paper.book().write(Constants.doctorId, responseToken.doctorId)

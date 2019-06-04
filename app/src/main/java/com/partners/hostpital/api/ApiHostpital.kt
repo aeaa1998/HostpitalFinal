@@ -3,6 +3,7 @@ package com.partners.hostpital.api
 import android.database.Observable
 import com.partners.hostpital.models.CalendarDatesResponse
 import com.partners.hostpital.models.DoctorResponse
+import com.partners.hostpital.models.PatientResponse
 import com.partners.hostpital.models.TokenResponse
 import com.partners.hostpital.requests.UpdateDateRequest
 import retrofit2.Call
@@ -35,6 +36,12 @@ interface ApiHostpital{
 
     @GET("all/doctors/{user_id}/{is_doctor}")
     fun allDoctors(@Path("user_id") userId: Int, @Path("is_doctor") doctorId: Int): Call<List<DoctorResponse>>
+
+    @GET("all/patients/doctor/{user_id}/1}")
+    fun allPatientsDoctor(@Path("user_id") userId: Int): Call<List<PatientResponse>>
+
+    @GET("/doctors/{id}}")
+    fun getDoctoryById(@Path("id") Id: Int): Call<DoctorResponse>
 
 
 

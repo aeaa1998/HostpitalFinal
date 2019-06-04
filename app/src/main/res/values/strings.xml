@@ -47,7 +47,6 @@
     <string name="patient">Paciente</string>
 
 
-
     <string name="pending">Pendiente</string>
     <string name="accepted">Aceptada</string>
     <string name="rejected">Rechazada</string>
@@ -56,7 +55,6 @@
     <string name="button_reject">Rechazar</string>
     <string name="button_check_report">Ver Reporte</string>
     <string name="button_process_date">Procesar Cita</string>
-
 
 
     <!--//DoReport-->
@@ -69,5 +67,8 @@
     <string name="doctor_type">Especialidad del doctor</string>
     <string name="doctor_schedule">Horario del doctor</string>
     <string name="doctor_date">Pedir Cita</string>
+
+    <!--Patient-->
+    <string name="email">email</string>
 
 </resources>
