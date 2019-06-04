@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".DoReportFragmentDate">
+
+    <TextView
+        android:id="@+id/TitleReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="176dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/report"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_selected_holder2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/fill_fields"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="15sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TitleReport" />
+
+    <TextView
+        android:id="@+id/role_txt_selected_holder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/recipe"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/txt_selected_holder2"
+        app:layout_constraintTop_toBottomOf="@+id/txt_selected_holder2" />
+
+    <TextView
+        android:id="@+id/role_txt_selected_holder2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/observations"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/role_txt_selected_holder"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_textarea" />
+
+    <EditText
+        android:id="@+id/recipe_textarea"
+        android:layout_width="0sp"
+        android:layout_height="130sp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:hint="Aca va la receta"
+        app:layout_constraintEnd_toEndOf="@+id/txt_selected_holder2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/role_txt_selected_holder"
+        app:layout_constraintTop_toTopOf="@+id/role_txt_selected_holder"
+        android:autofillHints="">
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/observations_textarea"
+        android:layout_width="0sp"
+        android:layout_height="130sp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:hint="Aca va las observaciones"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="@+id/recipe_textarea"
+        app:layout_constraintStart_toEndOf="@+id/role_txt_selected_holder"
+        app:layout_constraintTop_toTopOf="@+id/role_txt_selected_holder2">
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/send_report"
+        android:layout_width="96dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/menu_send"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/observations_textarea" />
+</androidx.constraintlayout.widget.ConstraintLayout>

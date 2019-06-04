@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/datesFragment"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_dates" />
+        <item
+            android:id="@+id/fragment_dates_requests"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/menu_dates_requests" />
+
+        <item
+            android:id="@+id/fragment_patients"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_patients" />
+        <item
+            android:id="@+id/fragment_doctors"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_doctors" />
+
+    </group>
+
+    <item android:title="Settings">
+        <menu>
+            <item
+                android:id="@+id/fragment_configuration"
+                android:icon="@drawable/ic_menu_share"
+                android:title="@string/configuration" />
+            <item
+                android:id="@+id/log_out"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/log_out" />
+        </menu>
+    </item>
+
+</menu>

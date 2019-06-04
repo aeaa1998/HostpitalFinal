@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/doctor_app_navigation"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.partners.hostpital.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_datesRequestsFragment"
+            app:destination="@id/fragment_dates_requests" />
+        <action
+            android:id="@+id/action_mainFragment_to_patientsFragment"
+            app:destination="@id/fragment_patients" />
+        <action
+            android:id="@+id/action_mainFragment_to_doctorsFragment"
+            app:destination="@id/fragment_doctors" />
+        <action
+            android:id="@+id/action_mainFragment_to_selected_date"
+            app:destination="@id/selected_date" />
+        <action
+            android:id="@+id/action_mainFragment_to_datesFragment"
+            app:destination="@id/datesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selected_date"
+        android:name="com.partners.hostpital.Selected_date"
+        android:label="fragment_selected_date"
+        tools:layout="@layout/fragment_selected_date" >
+        <argument
+            android:name="selectedDateFragment"
+            app:argType="com.partners.hostpital.models.CalendarDatesResponse"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_selected_date_to_reportDateFragment"
+            app:destination="@id/reportDateFragment" />
+        <action
+            android:id="@+id/action_selected_date_to_doReportFragmentDate"
+            app:destination="@id/doReportFragmentDate" />
+    </fragment>
+    <fragment
+        android:id="@+id/reportDateFragment"
+        android:name="com.partners.hostpital.ReportDateFragment"
+        android:label="fragment_report_date"
+        tools:layout="@layout/fragment_report_date" >
+        <argument
+            android:name="selectedDate"
+            app:argType="com.partners.hostpital.models.CalendarDatesResponse"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_dates_requests"
+        android:name="com.partners.hostpital.DatesRequestsFragment"
+        android:label="fragment_dates_requests"
+        tools:layout="@layout/fragment_dates_requests" >
+        <action
+            android:id="@+id/action_fragment_dates_requests_to_selected_date"
+            app:destination="@id/selected_date" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_patients"
+        android:name="com.partners.hostpital.PatientsFragment"
+        android:label="fragment_patients"
+        tools:layout="@layout/fragment_patients" >
+        <action
+            android:id="@+id/action_patientsFragment_to_selectedPatientFragment"
+            app:destination="@id/selectedPatientFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectedPatientFragment"
+        android:name="com.partners.hostpital.SelectedPatientFragment"
+        android:label="fragment_selected_patient"
+        tools:layout="@layout/fragment_selected_patient" >
+        <argument
+            android:name="selectedPatientId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_doctors"
+        android:name="com.partners.hostpital.DoctorsFragment"
+        android:label="fragment_doctors"
+        tools:layout="@layout/fragment_doctors" >
+        <action
+            android:id="@+id/action_doctorsFragment_to_selectedDoctorFragment"
+            app:destination="@id/selectedDoctorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectedDoctorFragment"
+        android:name="com.partners.hostpital.SelectedDoctorFragment"
+        android:label="fragment_selected_doctor"
+        tools:layout="@layout/fragment_selected_doctor" >
+        <argument
+            android:name="selectedDoctor"
+            app:argType="com.partners.hostpital.models.DoctorResponse" />
+    </fragment>
+    <fragment
+        android:id="@+id/doReportFragmentDate"
+        android:name="com.partners.hostpital.DoReportFragmentDate"
+        android:label="fragment_do_report_fragment_date"
+        tools:layout="@layout/fragment_do_report_fragment_date" >
+        <argument
+            android:name="selectedDate"
+            app:argType="com.partners.hostpital.models.CalendarDatesResponse"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/datesFragment"
+        android:name="com.partners.hostpital.DatesFragment"
+        android:label="fragment_dates"
+        tools:layout="@layout/fragment_dates" >
+        <action
+            android:id="@+id/action_datesFragment_to_selected_date"
+            app:destination="@id/selected_date" />
+    </fragment>
+</navigation>

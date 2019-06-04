@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ReportDateFragment">
+
+    <TextView
+        android:id="@+id/role_txt_selected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/holder"
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/role_txt_selected_holder"
+        app:layout_constraintTop_toTopOf="@+id/role_txt_selected_holder" />
+
+    <TextView
+        android:id="@+id/role_txt_selected_holder_recipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/recipe"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/role_txt_selected_holder" />
+
+    <TextView
+        android:id="@+id/role_txt_selected_holder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/holder"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TitleReport" />
+
+    <TextView
+        android:id="@+id/role_txt_selected_holder_observations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/observations"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/role_txt_selected_holder_recipe"
+        app:layout_constraintTop_toBottomOf="@+id/recipe_container" />
+
+    <TextView
+        android:id="@+id/TitleReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="176dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/report"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/observations_container"
+        android:layout_width="0sp"
+        android:layout_height="130sp"
+        android:layout_marginTop="60dp"
+        android:ems="10"
+        android:inputType="none"
+        android:text="@string/holder"
+        app:layout_constraintEnd_toEndOf="@+id/recipe_container"
+        app:layout_constraintStart_toStartOf="@+id/recipe_container"
+        app:layout_constraintTop_toTopOf="@+id/role_txt_selected_holder_observations" />
+
+    <EditText
+        android:id="@+id/recipe_container"
+        android:layout_width="0sp"
+        android:layout_height="130sp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="28dp"
+        android:ems="10"
+        android:inputType="none"
+        android:text="@string/holder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/role_txt_selected_holder_recipe"
+        app:layout_constraintTop_toTopOf="@+id/role_txt_selected_holder_recipe" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

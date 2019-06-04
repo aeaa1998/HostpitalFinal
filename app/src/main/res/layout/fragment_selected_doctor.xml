@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SelectedDoctorFragment">
+
+
+    <ImageView
+        android:id="@+id/doctor_image"
+        android:layout_width="137dp"
+        android:layout_height="137dp"
+        android:layout_marginStart="137dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="137dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_patient"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/doctor_name_single"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="130dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/holder"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doctor_image" />
+
+    <TextView
+        android:id="@+id/doctor_schedule_text"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/doctor_schedule"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/doctor_type_text"
+        app:layout_constraintTop_toBottomOf="@+id/doctor_type_single" />
+
+    <TextView
+        android:id="@+id/doctor_type_text"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/doctor_type"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doctor_name_single" />
+
+    <TextView
+        android:id="@+id/doctor_type_single"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/holder"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/doctor_type_text"
+        app:layout_constraintTop_toBottomOf="@+id/doctor_type_text" />
+
+    <TextView
+        android:id="@+id/doctor_schedule_single"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/holder"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/doctor_schedule_name_single"
+        app:layout_constraintTop_toBottomOf="@+id/doctor_schedule_name_single" />
+
+    <TextView
+        android:id="@+id/doctor_schedule_name_single"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/holder"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/doctor_schedule_text"
+        app:layout_constraintTop_toBottomOf="@+id/doctor_schedule_text" />
+
+    <Button
+        android:id="@+id/doctor_date_request_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@color/design_default_color_primary"
+        android:text="@string/doctor_date"
+        app:layout_constraintStart_toStartOf="@+id/doctor_schedule_single"
+        app:layout_constraintTop_toBottomOf="@+id/doctor_schedule_single" />
+</androidx.constraintlayout.widget.ConstraintLayout>
