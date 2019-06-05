@@ -35,7 +35,7 @@ class CreateUserActivity : AppCompatActivity() {
                     if ((firstName == "") || (lastName == "") || (username == "") || (email == "") || (password == "")){
 
                     } else {
-                        
+
                     }
                 }
             }
