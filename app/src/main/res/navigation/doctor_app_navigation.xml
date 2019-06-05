@@ -107,6 +107,9 @@
         <argument
             android:name="selectedDoctor"
             app:argType="com.partners.hostpital.models.DoctorResponse" />
+        <action
+            android:id="@+id/action_selectedDoctorFragment_to_makeRequestDateFragment"
+            app:destination="@id/makeRequestDateFragment" />
     </fragment>
     <fragment
         android:id="@+id/doReportFragmentDate"

@@ -67,22 +67,30 @@ class Selected_date : Fragment() {
             0 ->  {
                 statusV.text = getString(R.string.pending)
                 statusV.setTextColor(getColor(requireContext(), R.color.pending))
-                setOptionalButtonVisible(optionalButton)
-                optionalButton.text = getString(R.string.button_reject)
-                setAlwaysButton(alwaysButton, R.color.accept_green, R.string.button_accept)
-                alwaysButton.setOnClickListener {
-                    responseDateUpdate(acceptDate(), "Se ha aceptado con exito la cita")
+                if (Paper.book().read<Int>(Constants.isDoctor) == 1) {
+                    setOptionalButtonVisible(optionalButton)
+                    optionalButton.text = getString(R.string.button_reject)
+                    setAlwaysButton(alwaysButton, R.color.accept_green, R.string.button_accept)
+                    alwaysButton.setOnClickListener {
+                        responseDateUpdate(acceptDate(), "Se ha aceptado con exito la cita")
+                    }
+                }else{
+                    setOptionalButtonInvisible(optionalButton)
+                    setAlwaysButtonInvisible(alwaysButton)
                 }
-
 
             }
             1 ->  {
                 statusV.text = getString(R.string.accepted)
                 statusV.setTextColor(getColor(requireContext(), R.color.accept_green))
                 setOptionalButtonInvisible(optionalButton)
-                setAlwaysButton(alwaysButton, R.color.white, R.string.button_process_date)
-                val action = Selected_dateDirections.actionSelectedDateToDoReportFragmentDate(selectedDate)
-                setAlwaysButtonDirection(alwaysButton, action)
+                if (Paper.book().read<Int>(Constants.isDoctor) == 1) {
+                    setAlwaysButton(alwaysButton, R.color.white, R.string.button_process_date)
+                    val action = Selected_dateDirections.actionSelectedDateToDoReportFragmentDate(selectedDate)
+                    setAlwaysButtonDirection(alwaysButton, action)
+                }else{
+                    setAlwaysButtonInvisible(alwaysButton)
+                }
 
             }
             2 ->  {
@@ -127,6 +135,7 @@ class Selected_date : Fragment() {
         optionalButton.visibility = View.GONE
         optionalButton.isClickable = false
     }
+
 
     fun setAlwaysButton(alwaysButton: Button, color: Int, string: Int){
         alwaysButton.visibility = View.VISIBLE

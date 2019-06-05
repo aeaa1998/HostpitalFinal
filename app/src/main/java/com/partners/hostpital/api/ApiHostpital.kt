@@ -32,6 +32,18 @@ interface ApiHostpital{
             @Field("reason") reason: String,
             @Field("is_doctor") password: Int
     ): Call<CalendarDatesResponse?>
+    @POST("users/")
+    @FormUrlEncoded
+    fun newUser(
+            @Field("username") username: String,
+            @Field("password") password: String,
+            @Field("email") email: String,
+            @Field("first_name") firstName: String,
+            @Field("last_name") lastName: String,
+            @Field("doctor_type") doctorType: String,
+            @Field("is_doctor") isDoctor: Int
+            ): Call<UserResponse>
+
 
     @GET("dates/{user_id}/{is_doctor}")
     fun datesByDate(@Path("user_id") userId: Int, @Path("is_doctor") doctorId: Int): Call<List<CalendarDatesResponse>>

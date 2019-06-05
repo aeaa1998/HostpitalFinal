@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/patient_app_navigation"
+    app:startDestination="@id/mainFragment2">
+
+    <fragment
+        android:id="@+id/mainFragment2"
+        android:name="com.partners.hostpital.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment2_to_configurationDoctorFragment2"
+            app:destination="@id/configurationDoctorFragment2" />
+        <action
+            android:id="@+id/action_mainFragment2_to_datesFragment2"
+            app:destination="@+id/datesFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/configurationDoctorFragment2"
+        android:name="com.partners.hostpital.ConfigurationDoctorFragment"
+        android:label="fragment_configuration_doctor"
+        tools:layout="@layout/fragment_configuration_doctor" />
+    <fragment
+        android:id="@+id/datesFragment2"
+        android:name="com.partners.hostpital.DatesFragment"
+        android:label="fragment_dates"
+        tools:layout="@layout/fragment_dates" />
+</navigation>

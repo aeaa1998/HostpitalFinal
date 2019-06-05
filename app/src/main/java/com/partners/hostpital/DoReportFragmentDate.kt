@@ -54,7 +54,8 @@ class DoReportFragmentDate : Fragment() {
         v.findViewById<ImageButton>(R.id.recipeVoice).isClickable = Paper.book().read(Constants.isDoctor, 0) == 1 && selectedDate?.status == 1
 
         recordPermission = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.RECORD_AUDIO)
-
+        recipe = v.findViewById(R.id.recipe_textarea)
+        observations = v.findViewById(R.id.observations_textarea)
 
         v.findViewById<ImageButton>(R.id.recipeVoice).setOnClickListener {
             if (!checkRecordPermission())
@@ -158,6 +159,7 @@ class DoReportFragmentDate : Fragment() {
     @Override
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         when(requestCode){
             10 -> {
                 if (resultCode == Activity.RESULT_OK && data != null){

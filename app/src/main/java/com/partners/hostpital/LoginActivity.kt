@@ -50,6 +50,7 @@ class LoginActivity : AppCompatActivity() {
                     Toast.makeText(this@LoginActivity, "Se ha logeado correctamente", Toast.LENGTH_LONG).show()
                     Paper.book().write(Constants.accessToken, responseToken.accessToken)
                     Paper.book().write(Constants.isDoctor, responseToken.isDoctor)
+                    Paper.book().write(Constants.hasDoctor, responseToken.isDoctor)
                     Paper.book().write(Constants.userId, responseToken.id)
                     Paper.book().write(Constants.fullName, responseToken.firstName + ' ' +responseToken.lastName)
                     Paper.book().write(Constants.patientId, responseToken.patientId)
@@ -75,6 +76,11 @@ class LoginActivity : AppCompatActivity() {
                 Log.e("fail token", "Error al general el token")
             }
         })
+    }
+
+    fun create(v: View){
+        val intent = Intent(this, CreateUserActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onBackPressed() {

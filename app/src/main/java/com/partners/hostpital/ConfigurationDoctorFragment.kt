@@ -46,7 +46,7 @@ class ConfigurationDoctorFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_configuration_doctor, container, false)
         // Inflate the layout for this fragment
         getAllViews(v)
-        newName.setOnClickListener {
+        newNameBtn.setOnClickListener {
             updateInfo(newName, 1)
         }
         newLastNameBtn.setOnClickListener {
@@ -92,8 +92,12 @@ class ConfigurationDoctorFragment : Fragment() {
                     if (response.body() != null && (response.code() < 300)) {
                         val response = requireNotNull(response.body())
 //                        val action = DoReportFragmentDateDirections.actionDoReportFragmentDateToSelectedDate(response.body())
+                        if (idx == 1 || idx == 2){
+                            Paper.book().write(Constants.fullName, response.firstName + ' ' +response.lastName)
+                        }
                         Toast.makeText(this@ConfigurationDoctorFragment.context, "Se ha cambiado la informacion con exito", Toast.LENGTH_LONG).show()
-                        NavHostFragment.findNavController(requireParentFragment()).popBackStack(R.id.mainFragment, false)
+
+//                        NavHostFragment.findNavController(requireParentFragment()).popBackStack(R.id.mainFragment, false)
 
 
                     } else {

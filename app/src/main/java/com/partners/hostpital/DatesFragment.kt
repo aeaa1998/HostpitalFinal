@@ -2,11 +2,14 @@ package com.partners.hostpital
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
@@ -27,8 +30,11 @@ import java.util.*
 class DatesFragment : Fragment() {
 
     var dates = emptyList<CalendarDatesResponse>()
+    var filteredDates = emptyList<CalendarDatesResponse>()
     lateinit var calendarInstance: Calendar
     lateinit var recycler: RecyclerView
+    lateinit var filterByReason: EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -38,6 +44,22 @@ class DatesFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_dates, container, false)
+        filterByReason = v.findViewById(R.id.filter_dates_fragment)
+        filterByReason.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filteredDates = dates.filter {
+                    it.reason == s.toString() ||  it.reason.startsWith(s.toString())
+                }
+
+                recycler.adapter?.notifyDataSetChanged()
+            }
+
+        })
+
         calendarInstance = Calendar.getInstance()
         recycler = v.findViewById(R.id.recycler_row_dates)
         recycler.layoutManager = LinearLayoutManager(context)
@@ -83,12 +105,12 @@ class DatesFragment : Fragment() {
     }
 
     inner class DatesProcessedAdapter: RecyclerView.Adapter<CustomViewHolder>() {
-        override fun getItemCount() = dates.size
+        override fun getItemCount() = if (filterByReason.text.toString() == ""){dates.size}else{filteredDates.size}
 
         @SuppressLint("SetTextI18n")
         override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
+            val date = if (filterByReason.text.toString() == ""){dates[position]}else{filteredDates[position]}
 
-            val date = dates[position]
             val view = holder.view
             val nameTxtV =view.findViewById<TextView>(R.id.name_textview)
             val reasonTxt =view.findViewById<TextView>(R.id.reason_text)

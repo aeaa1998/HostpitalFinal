@@ -2,11 +2,14 @@ package com.partners.hostpital
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
@@ -26,6 +29,8 @@ import java.util.*
 
 class DoctorsFragment : Fragment() {
     var doctors = emptyList<DoctorResponse>()
+    var filteredDoctors = emptyList<DoctorResponse>()
+    lateinit var filterByName: EditText
     lateinit var calendarInstance: Calendar
     lateinit var recycler: RecyclerView
 
@@ -38,6 +43,21 @@ class DoctorsFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_doctors, container, false)
+        filterByName = v.findViewById(R.id.filter_doctors_fragment)
+        filterByName.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filteredDoctors = doctors.filter {
+                    it.first_name == s.toString() || it.lastName == s.toString() || it.first_name.startsWith(s.toString()) ||  it.lastName.startsWith(s.toString())
+                }
+
+                recycler.adapter?.notifyDataSetChanged()
+            }
+
+        })
 
         calendarInstance = Calendar.getInstance()
         setRecycler(v)
@@ -88,12 +108,11 @@ class DoctorsFragment : Fragment() {
     }
 
     inner class DoctorsAdapter: RecyclerView.Adapter<CustomViewHolder>() {
-        override fun getItemCount() = doctors.size
+        override fun getItemCount() = if (filterByName.text.toString() == ""){doctors.size}else{filteredDoctors.size}
 
         @SuppressLint("SetTextI18n")
         override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-
-            val doctor = doctors[position]
+            val doctor = if (filterByName.text.toString() == ""){doctors[position]}else{filteredDoctors[position]}
             val view = holder.view
             val nameTxtV =view.findViewById<TextView>(R.id.name_textview)
             val schedule =view.findViewById<TextView>(R.id.reason_text)

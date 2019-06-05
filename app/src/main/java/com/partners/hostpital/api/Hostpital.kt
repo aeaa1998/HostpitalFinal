@@ -13,6 +13,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
+import android.app.Activity
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+
 
 class Hostpital : Application(){
     companion object {
@@ -20,7 +24,10 @@ class Hostpital : Application(){
         val newFormat = SimpleDateFormat("HH:mm:ss")
         val newFormatTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
         val service = API.request()
-
+        fun hideKeyboardFrom(context: Context, view: View) {
+            val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
+        }
 //        fun <T>getList(response: Call<List<T>>, recycler: RecyclerView, context:Context): List<T> {
 //            var r : ArrayList<T>?= null
 //            val service = API.request()

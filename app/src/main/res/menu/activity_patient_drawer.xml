@@ -5,11 +5,11 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/dates_fragment"
+            android:id="@+id/datesFragment"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_dates" />
         <item
-            android:id="@+id/doctors_fragment"
+            android:id="@+id/fragment_doctors"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_doctors" />
 
@@ -18,13 +18,9 @@
     <item android:title="Settings">
         <menu>
             <item
-                android:id="@+id/configuration_fragment"
+                android:id="@+id/configurationDoctorFragment"
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/configuration" />
-            <item
-                android:id="@+id/log_out"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/log_out" />
         </menu>
     </item>
 

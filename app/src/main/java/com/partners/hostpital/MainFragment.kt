@@ -68,7 +68,7 @@ class MainFragment : Fragment() {
 
     fun getAllDates(dayOfMonth: Int, month: Int, year: Int){
         val service = API.request()
-        val response = service.datesByDate(Paper.book().read(Constants.userId), Paper.book().read(Constants.isDoctor))
+        val response = service.datesByDate(Paper.book().read(Constants.userId), Paper.book().read<Int>(Constants.isDoctor))
 
         response.enqueue(object : Callback<List<CalendarDatesResponse>> {
             override fun onResponse(call: Call<List<CalendarDatesResponse>>, response: Response<List<CalendarDatesResponse>>) {

@@ -2,13 +2,17 @@ package com.partners.hostpital
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.inputmethodservice.Keyboard
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
@@ -16,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.partners.hostpital.api.API
 import com.partners.hostpital.api.Hostpital
+import com.partners.hostpital.api.Hostpital.Companion.hideKeyboardFrom
 import com.partners.hostpital.helpers.Constants
 import com.partners.hostpital.models.CalendarDatesResponse
 import com.partners.hostpital.models.DoctorResponse
@@ -30,8 +35,10 @@ import java.util.*
 
 class PatientsFragment : Fragment() {
     var patients = emptyList<PatientResponse>()
+    var filteredPatients = emptyList<PatientResponse>()
     lateinit var calendarInstance: Calendar
     lateinit var recycler: RecyclerView
+    lateinit var filterByName: EditText
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +50,7 @@ class PatientsFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_patients, container, false)
+        filterByName = v.findViewById(R.id.filter_patients_fragment)
         calendarInstance = Calendar.getInstance()
         setRecycler(v)
         recycler.adapter?.notifyDataSetChanged()
@@ -50,6 +58,21 @@ class PatientsFragment : Fragment() {
         val b = container?.rootView?.findViewById<View>(R.id.floating_btn_doctor)
         b?.visibility = View.GONE
         b?.isClickable = false
+
+        filterByName.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filteredPatients = patients.filter {
+                    it.firstName == s.toString() || it.lastName == s.toString() || it.firstName.startsWith(s.toString()) ||  it.lastName.startsWith(s.toString())
+                }
+
+                recycler.adapter?.notifyDataSetChanged()
+            }
+
+        })
 
         return v
     }
@@ -84,12 +107,12 @@ class PatientsFragment : Fragment() {
     }
 
     inner class PatientsAdapter: RecyclerView.Adapter<CustomViewHolder>() {
-        override fun getItemCount() = patients.size
+        override fun getItemCount() = if (filterByName.text.toString() == ""){patients.size}else{filteredPatients.size}
 
         @SuppressLint("SetTextI18n")
         override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
 
-            val patient = patients[position]
+            val patient = if (filterByName.text.toString() == ""){patients[position]}else{filteredPatients[position]}
             val view = holder.view
             val patientText =view.findViewById<TextView>(R.id.name_textview)
             val patientName =view.findViewById<TextView>(R.id.date_text)
@@ -100,6 +123,7 @@ class PatientsFragment : Fragment() {
             email.text = "e-mail: ${patient.email}"
 
             button.setOnClickListener {
+                hideKeyboardFrom(requireContext(), view)
                 val action = PatientsFragmentDirections.actionPatientsFragmentToSelectedPatientFragment(patient)
                 NavHostFragment.findNavController(requireParentFragment()).navigate(action)
             }

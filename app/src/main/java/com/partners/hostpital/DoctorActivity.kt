@@ -1,5 +1,6 @@
 package com.partners.hostpital
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -23,6 +24,8 @@ class DoctorActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Paper.book().write(Constants.isDoctor, 1)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_doctor)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -79,7 +82,13 @@ class DoctorActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_settings -> {
+                Paper.book().destroy()
+                val intent = Intent(applicationContext, SplashActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }

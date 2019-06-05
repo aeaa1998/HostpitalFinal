@@ -11,10 +11,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.fragment.NavHostFragment
 import com.partners.hostpital.api.Hostpital
 import com.partners.hostpital.helpers.Constants
 import com.partners.hostpital.models.CalendarDatesResponse
 import com.partners.hostpital.models.DoctorResponse
+import com.partners.hostpital.models.PatientResponse
 import io.paperdb.Paper
 
 
@@ -57,6 +59,12 @@ class SelectedDoctorFragment : Fragment() {
         val exitFormatted = Hostpital.newFormat.format(selectedDoctor.schedule.exitTime)
         doctorDoDateButton.visibility = if (Paper.book().read<Int>(Constants.isDoctor) == 1){View.GONE}else{View.VISIBLE}
         doctorDoDateButton.isClickable = Paper.book().read<Int>(Constants.isDoctor) != 1
+        val pr = Paper.book().read<PatientResponse>(Constants.patientUser)
+        doctorDoDateButton.setOnClickListener {
+           val action =  SelectedDoctorFragmentDirections.actionSelectedDoctorFragmentToMakeRequestDateFragment(selectedDoctor, pr)
+            NavHostFragment.findNavController(requireParentFragment()).navigate(action)
+
+        }
         doctorType.text = selectedDoctor.doctorType.name
         doctorName.text = "${selectedDoctor.first_name} ${selectedDoctor.lastName}"
         doctorSchedule.text = "Entrada: $enterFormatted - Salida: $exitFormatted"
