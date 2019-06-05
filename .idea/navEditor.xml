@@ -192,6 +192,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_selectedPatientFragment_to_makeRequestDateFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_selectedPatientFragment_to_selected_date">
                               <value>
                                 <LayoutPositions />

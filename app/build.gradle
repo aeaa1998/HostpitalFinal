@@ -22,6 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -49,4 +53,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui:$nav_version"
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     // For Kotlin use navigation-ui-ktx
+
+//    picker
+    implementation 'com.wdullaer:materialdatetimepicker:4.2.0'
 }

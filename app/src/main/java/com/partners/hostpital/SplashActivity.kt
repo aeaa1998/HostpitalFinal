@@ -40,5 +40,25 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        val bool = Paper.book().read<String>(Constants.accessToken) ?: "" !== ""
+//        Toast.makeText(this, Paper.book().read<String>(Constants.accessToken), Toast.LENGTH_LONG).show()
+        if (!bool){
+            val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+            startActivity(intent)
+        }else{
+            val booleanDoctor = Paper.book().read<Int>(Constants.isDoctor) == 1
+
+            val intentActivity = if (booleanDoctor)
+            {
+                Intent(this@SplashActivity, ChooseApp::class.java)
+            }else{
+                Intent(this@SplashActivity, PatientActivity::class.java)
+            }
+            startActivity(intentActivity)
+        }
+    }
+
 
 }

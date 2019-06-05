@@ -1,14 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MakeRequestDateFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/date_doctor_name_do"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/holder"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/date_txt_doctor"
+        app:layout_constraintTop_toBottomOf="@+id/date_txt_doctor" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/date_patient_name_do"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/holder"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/date_txt_patient"
+        app:layout_constraintTop_toBottomOf="@+id/date_txt_patient" />
+
+    <TextView
+        android:id="@+id/date_patient_date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/cambay"
+        android:hint="yyyy-mm-dd"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/date_txt_date_holder"
+        app:layout_constraintTop_toBottomOf="@+id/date_txt_date_holder" />
+
+    <TextView
+        android:id="@+id/date_patient_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/cambay"
+        android:hint="HH:MM:SS"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/date_txt_date_holder2"
+        app:layout_constraintTop_toBottomOf="@+id/date_txt_date_holder2" />
+
+    <TextView
+        android:id="@+id/date_doctor_type_do"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/holder"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/date_doctor_name_do"
+        app:layout_constraintTop_toBottomOf="@+id/date_doctor_name_do" />
+
+    <TextView
+        android:id="@+id/date_txt_doctor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/doctor"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateTitle" />
+
+    <TextView
+        android:id="@+id/date_txt_patient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/patient"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/date_txt_doctor"
+        app:layout_constraintTop_toBottomOf="@+id/date_doctor_type_do" />
+
+    <TextView
+        android:id="@+id/date_txt_date_holder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/date_holder"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/date_txt_patient"
+        app:layout_constraintTop_toBottomOf="@+id/date_patient_name_do" />
+
+    <TextView
+        android:id="@+id/date_txt_date_holder3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/reason_holder"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/date_txt_date_holder"
+        app:layout_constraintTop_toBottomOf="@+id/select_date_btn" />
+
+    <TextView
+        android:id="@+id/date_txt_date_holder2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:fontFamily="@font/cambay"
+        android:text="Hora"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/date_txt_date_holder"
+        app:layout_constraintStart_toEndOf="@+id/date_patient_date_text"
+        app:layout_constraintTop_toTopOf="@+id/date_txt_date_holder" />
+
+    <TextView
+        android:id="@+id/dateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="176dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/date"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <Button
+        android:id="@+id/select_date_btn"
+        android:layout_width="141dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/cambay"
+        android:text="Select Date"
+        app:layout_constraintStart_toStartOf="@+id/date_patient_date_text"
+        app:layout_constraintTop_toBottomOf="@+id/date_patient_date_text" />
+
+    <Button
+        android:id="@+id/select_time_btn"
+        android:layout_width="141dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/cambay"
+        android:text="Select Time"
+        app:layout_constraintStart_toStartOf="@+id/date_patient_time_text"
+        app:layout_constraintTop_toBottomOf="@+id/date_patient_time_text" />
+
+    <Button
+        android:id="@+id/upload_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="120dp"
+        android:text="Procesar Cita"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reason_view_date" />
+
+    <EditText
+        android:id="@+id/reason_view_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:ems="10"
+        android:hint="Razon"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/date_txt_date_holder3"
+        app:layout_constraintStart_toEndOf="@+id/date_txt_date_holder3"
+        app:layout_constraintTop_toTopOf="@+id/date_txt_date_holder3" />
+</androidx.constraintlayout.widget.ConstraintLayout>

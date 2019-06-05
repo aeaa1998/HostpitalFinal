@@ -25,6 +25,15 @@ interface ApiHostpital{
             @Field("scope") scope: String
     ): Call<TokenResponse>
 
+    @FormUrlEncoded
+    fun postDate(
+            @Field("doctor_id") doctorId: Int,
+            @Field("patient_id") patientId: Int,
+            @Field("date") date: String,
+            @Field("reason") reason: String,
+            @Field("is_doctor") password: Int
+    ): Call<CalendarDatesResponse>
+
     @GET("dates/{user_id}/{is_doctor}")
     fun datesByDate(@Path("user_id") userId: Int, @Path("is_doctor") doctorId: Int): Call<List<CalendarDatesResponse>>
 

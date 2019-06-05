@@ -91,6 +91,9 @@ class MainFragment : Fragment() {
             }
         })
     }
+
+
+
     inner class CalendarDatesAdapter: RecyclerView.Adapter<CustomViewHolder>() {
         override fun getItemCount() = dates.size
 

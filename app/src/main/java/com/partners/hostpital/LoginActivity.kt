@@ -68,4 +68,11 @@ class LoginActivity : AppCompatActivity() {
             }
         })
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
+    }
 }
