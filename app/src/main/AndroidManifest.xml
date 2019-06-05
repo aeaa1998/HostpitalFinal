@@ -25,6 +25,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ChooseApp" />
+        <activity android:name=".CreateUserActivity"
+            android:noHistory="true"
+            />
         <activity
             android:name=".DoctorActivity"
             android:label="@string/title_activity_doctor"

@@ -8,6 +8,7 @@ import android.widget.Switch
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.partners.hostpital.api.Hostpital
 import com.partners.hostpital.models.UserResponse
 import io.paperdb.Paper
@@ -25,28 +26,44 @@ class CreateUserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_user)
-        setSupportActionBar(toolbar)
+
+        val firstName = findViewById<EditText>(R.id.firstname_edit_txt).text.toString()
+        val lastName = findViewById<EditText>(R.id.lastname_edit_txt).text.toString()
+        val username = findViewById<EditText>(R.id.username_edit_txt).text.toString()
+        val email = findViewById<EditText>(R.id.email_edit_txt).text.toString()
+        val password = findViewById<EditText>(R.id.password_edit_txt).text.toString()
+        val speciality = findViewById<EditText>(R.id.doctor_edit_txt).text.toString()
+        val doctorSwitch = findViewById<Switch>(R.id.doctor_switch)
+        findViewById<FloatingActionButton>(R.id.addUser).setOnClickListener {
 
 
-        add.setOnClickListener {
-            val firstName = findViewById<EditText>(R.id.firstname_edit_txt).text.toString()
-            val lastName = findViewById<EditText>(R.id.lastname_edit_txt).text.toString()
-            val username = findViewById<EditText>(R.id.username_edit_txt).text.toString()
-            val email = findViewById<EditText>(R.id.email_edit_txt).text.toString()
-            val password = findViewById<EditText>(R.id.password_edit_txt).text.toString()
-            val speciality = findViewById<EditText>(R.id.doctor_edit_txt).text.toString()
-            val doctorSwitch = findViewById<Switch>(R.id.doctor_switch)
-            doctorSwitch.setOnCheckedChangeListener{ _, isChecked ->
-                if (isChecked) {
-                    if ((firstName == "") || (lastName == "") || (username == "") || (email == "") || (password == "") || (speciality == "")){
+            if ((firstName == "") || (lastName == "") || (username == "") || (email == "") || (password == "")) {
+                Toast.makeText(applicationContext, "Llene todos los campos", Toast.LENGTH_LONG).show()
+
+            } else {
+                postNewUser(firstName, lastName, username, email, password, speciality, false)
+
+            }
+        }
+        doctorSwitch.setOnCheckedChangeListener{ _, isChecked ->
+            if (isChecked) {
+                findViewById<FloatingActionButton>(R.id.addUser).setOnClickListener {
+
+
+                    if ((firstName == "") || (lastName == "") || (username == "") || (email == "") || (password == "") || (speciality == "")) {
                         Toast.makeText(applicationContext, "Llene todos los campos incluyendo especialidad", Toast.LENGTH_LONG).show()
 
                     } else {
+
                         postNewUser(firstName, lastName, username, email, password, speciality, true)
                     }
+                }
 
-                } else {
-                    if ((firstName == "") || (lastName == "") || (username == "") || (email == "") || (password == "")){
+            } else {
+                findViewById<FloatingActionButton>(R.id.addUser).setOnClickListener {
+
+
+                    if ((firstName == "") || (lastName == "") || (username == "") || (email == "") || (password == "")) {
                         Toast.makeText(applicationContext, "Llene todos los campos", Toast.LENGTH_LONG).show()
 
                     } else {
@@ -55,7 +72,6 @@ class CreateUserActivity : AppCompatActivity() {
                     }
                 }
             }
-
         }
 
 
