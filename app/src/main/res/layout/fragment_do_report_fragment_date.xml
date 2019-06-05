@@ -108,4 +108,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/observations_textarea" />
+
+    <ImageButton
+        android:id="@+id/recipeVoice"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#008B1D1D"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toStartOf="@+id/recipe_textarea"
+        app:layout_constraintTop_toBottomOf="@+id/role_txt_selected_holder"
+        app:srcCompat="@drawable/ic_mic" />
+
+    <ImageButton
+        android:id="@+id/observationsVoice"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#008B1D1D"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toStartOf="@+id/observations_textarea"
+        app:layout_constraintTop_toBottomOf="@+id/role_txt_selected_holder2"
+        app:srcCompat="@drawable/ic_mic" />
 </androidx.constraintlayout.widget.ConstraintLayout>
