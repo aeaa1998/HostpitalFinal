@@ -59,6 +59,15 @@ class DoctorActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        val navView: NavigationView = findViewById(R.id.nav_view_doctor)
+        val headerView = navView.getHeaderView(0)
+        val fullName = Paper.book().read<String>(Constants.fullName)
+        headerView.findViewById<TextView>(R.id.nav_user_name).text = fullName
+
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.doctor, menu)

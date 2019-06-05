@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object API {
-    val url = "https://2da1f0f3.ngrok.io"
+    val url = "https://c95398c6.ngrok.io"
     fun request(): ApiHostpital{
         val gson = GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
         val gsonTime = GsonBuilder().setDateFormat("HH:mm:ss").create()

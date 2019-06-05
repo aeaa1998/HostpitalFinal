@@ -1,11 +1,9 @@
 package com.partners.hostpital.api
 
 import android.database.Observable
-import com.partners.hostpital.models.CalendarDatesResponse
-import com.partners.hostpital.models.DoctorResponse
-import com.partners.hostpital.models.PatientResponse
-import com.partners.hostpital.models.TokenResponse
+import com.partners.hostpital.models.*
 import com.partners.hostpital.requests.UpdateDateRequest
+import com.partners.hostpital.requests.UpdateUserInfoRequest
 import retrofit2.Call
 import retrofit2.http.*
 import retrofit2.http.GET
@@ -25,6 +23,7 @@ interface ApiHostpital{
             @Field("scope") scope: String
     ): Call<TokenResponse>
 
+    @POST("dates")
     @FormUrlEncoded
     fun postDate(
             @Field("doctor_id") doctorId: Int,
@@ -32,7 +31,7 @@ interface ApiHostpital{
             @Field("date") date: String,
             @Field("reason") reason: String,
             @Field("is_doctor") password: Int
-    ): Call<CalendarDatesResponse>
+    ): Call<CalendarDatesResponse?>
 
     @GET("dates/{user_id}/{is_doctor}")
     fun datesByDate(@Path("user_id") userId: Int, @Path("is_doctor") doctorId: Int): Call<List<CalendarDatesResponse>>
@@ -59,6 +58,12 @@ interface ApiHostpital{
             @Path("id") dateId: Int,
             @Body updateDateRequest: UpdateDateRequest
             ): Call<CalendarDatesResponse>
+
+    @PUT("users/{id}")
+    fun updateInfo(
+            @Path("id") userId: Int,
+            @Body updateDateRequest: UpdateUserInfoRequest
+            ): Call<UserResponse>
 
 
 }

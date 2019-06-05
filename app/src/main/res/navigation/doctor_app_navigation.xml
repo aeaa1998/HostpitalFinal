@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_mainFragment_to_datesFragment"
             app:destination="@id/datesFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_configurationDoctorFragment"
+            app:destination="@id/configurationDoctorFragment" />
     </fragment>
     <fragment
         android:id="@+id/selected_date"
@@ -137,4 +140,9 @@
             android:name="selectedPatient"
             app:argType="com.partners.hostpital.models.PatientResponse" />
     </fragment>
+    <fragment
+        android:id="@+id/configurationDoctorFragment"
+        android:name="com.partners.hostpital.ConfigurationDoctorFragment"
+        android:label="fragment_configuration_doctor"
+        tools:layout="@layout/fragment_configuration_doctor" />
 </navigation>

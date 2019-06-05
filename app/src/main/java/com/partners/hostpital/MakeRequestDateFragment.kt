@@ -28,6 +28,7 @@ import io.paperdb.Paper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.sql.Date
 import java.time.LocalDate
 import java.util.*
 
@@ -38,12 +39,14 @@ class MakeRequestDateFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
     lateinit var selectedPatient: PatientResponse
     lateinit var selectedDoctor: DoctorResponse
-    lateinit var selectedDate: String
-    lateinit var selectedTime: String
+    var selectedDate = ""
+    var selectedTime = ""
     lateinit var doctorNameView: TextView
     lateinit var doctorTypeView: TextView
     lateinit var reasonDate: EditText
     lateinit var patientNameView: TextView
+    lateinit var uploadBtn: Button
+    var day = 0
     lateinit var dateView: TextView
     lateinit var timeView: TextView
 
@@ -80,6 +83,7 @@ class MakeRequestDateFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
         dateView = v.findViewById(R.id.date_patient_date_text)
         timeView = v.findViewById(R.id.date_patient_time_text)
         reasonDate = v.findViewById(R.id.reason_view_date)
+        uploadBtn = v.findViewById(R.id.upload_date_btn)
     }
 
     @SuppressLint("SetTextI18n")
@@ -89,6 +93,9 @@ class MakeRequestDateFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
         doctorNameView.text = "${selectedDoctor.first_name} ${selectedDoctor.lastName}"
         doctorTypeView.text = "Especialidad: ${selectedDoctor.doctorType.name}"
         patientNameView.text = "${selectedPatient.firstName} ${selectedPatient.lastName}"
+        uploadBtn.setOnClickListener {
+            processDate()
+        }
         val b = container?.rootView?.findViewById<View>(R.id.floating_btn_doctor)
         b?.visibility = View.GONE
         b?.isClickable = false
@@ -101,30 +108,40 @@ class MakeRequestDateFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
         val d = DatePickerDialog.newInstance{ view, year, monthOfYear, dayOfMonth ->
             val sday = if (dayOfMonth < 10){ "0$dayOfMonth" }else{ "$dayOfMonth" }
-            val smonth = if (monthOfYear < 10){ "0$monthOfYear" }else{ "$monthOfYear" }
-
+            val smonth = if (monthOfYear+1 < 10){ "0${monthOfYear+1}" }else{ "$monthOfYear" }
+            day = dayOfMonth
             selectedDate = "$year-$smonth-$sday"
             dateView.text = selectedDate
         }
         d.minDate = now
-
         d.show(requireFragmentManager(), "Datepickerdialog")
     }
     fun setTime(v: View){
         val now = Calendar.getInstance()
 
-        val time = TimePickerDialog.newInstance(this,
-                now.get(Calendar.HOUR_OF_DAY),
-                now.get(Calendar.MINUTE),
-                true)
-        time.enableMinutes(false)
-        time.is24HourMode
-        time.enableSeconds(false)
-        val minHour = if (selectedDoctor.schedule.enterTime.after(now.time)){selectedDoctor.schedule.enterTime.hours}else{now.get(Calendar.HOUR)}
-        time.setMinTime(minHour,0, 0)
-        time.setMaxTime(selectedDoctor.schedule.exitTime.hours,0, 0)
-        time.onTimeSetListener = this
-        time.show(requireFragmentManager(), "Datepickerdialog")
+        if (selectedDate!="") {
+            if (now.get(Calendar.DAY_OF_MONTH) == day){
+                Toast.makeText(requireContext(), "El dia de hoy no es valido escoja otra fecha", Toast.LENGTH_LONG).show()
+            }else {
+
+
+                val time = TimePickerDialog.newInstance(this,
+                        now.get(Calendar.HOUR_OF_DAY),
+                        now.get(Calendar.MINUTE),
+                        true)
+                time.enableMinutes(false)
+                time.is24HourMode
+                time.enableSeconds(false)
+                time.setLocale(Locale.getDefault())
+                time.setMinTime(selectedDoctor.schedule.enterTime.hours, 0, 0)
+                time.setMaxTime(selectedDoctor.schedule.exitTime.hours, 0, 0)
+                time.onTimeSetListener = this
+                time.show(requireFragmentManager(), "Datepickerdialog")
+            }
+        }else{
+            Toast.makeText(requireContext(), "Escoja una fecha", Toast.LENGTH_LONG).show()
+
+        }
     }
     override fun onTimeSet(view: TimePickerDialog?, hourOfDay: Int, minute: Int, second: Int) {
         val selectHour = if (hourOfDay < 10){ "0$hourOfDay" }else{ "$hourOfDay" }
@@ -138,9 +155,8 @@ class MakeRequestDateFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
         if (b) {
             val isDoctor = Paper.book().read(Constants.patientId, 0)
             val response = service.postDate(selectedDoctor.id, selectedPatient.id, "$selectedDate $selectedTime", reasonDate.text.toString(), isDoctor)
-            response.enqueue(object : Callback<CalendarDatesResponse> {
-                @SuppressLint("HardwareIds")
-                override fun onResponse(call: Call<CalendarDatesResponse>, response: Response<CalendarDatesResponse>) {
+            response.enqueue(object : Callback<CalendarDatesResponse?> {
+                override fun onResponse(call: Call<CalendarDatesResponse?>, response: Response<CalendarDatesResponse?>) {
 
                     if (response.body() != null && (response.code() < 300))
                     {
@@ -151,13 +167,14 @@ class MakeRequestDateFragment : Fragment(), TimePickerDialog.OnTimeSetListener {
 
 
                     } else {
-                        Toast.makeText(requireContext(), response.message(), Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), "Ya existe esa cita", Toast.LENGTH_LONG).show()
 
                     }
                 }
 
-                override fun onFailure(call: Call<CalendarDatesResponse>, t: Throwable) {
+                override fun onFailure(call: Call<CalendarDatesResponse?>, t: Throwable) {
                     Log.e("fail token", "Error al general el token")
+
                     Toast.makeText(requireContext(), t.message, Toast.LENGTH_LONG).show()
 
                 }

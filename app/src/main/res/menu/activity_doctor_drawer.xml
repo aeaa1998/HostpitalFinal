@@ -27,13 +27,9 @@
     <item android:title="Settings">
         <menu>
             <item
-                android:id="@+id/fragment_configuration"
+                android:id="@+id/configurationDoctorFragment"
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/configuration" />
-            <item
-                android:id="@+id/log_out"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/log_out" />
         </menu>
     </item>
 

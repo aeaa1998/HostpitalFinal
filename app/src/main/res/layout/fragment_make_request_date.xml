@@ -175,7 +175,7 @@
         app:layout_constraintTop_toBottomOf="@+id/date_patient_time_text" />
 
     <Button
-        android:id="@+id/upload_date"
+        android:id="@+id/upload_date_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="120dp"

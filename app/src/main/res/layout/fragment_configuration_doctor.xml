@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConfigurationDoctorFragment">
+
+
+    <TextView
+        android:id="@+id/name_holder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/cambay"
+        android:text="Nuevo Nombre"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/configTitle" />
+
+    <TextView
+        android:id="@+id/name_holder2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/cambay"
+        android:text="Nuevo Apellido"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/name_holder"
+        app:layout_constraintTop_toBottomOf="@+id/new_name_txt" />
+
+    <TextView
+        android:id="@+id/name_holder4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/cambay"
+        android:text="Nuevo Usuario"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/name_holder2"
+        app:layout_constraintTop_toBottomOf="@+id/new_last_name_txt" />
+
+    <TextView
+        android:id="@+id/name_holder5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/cambay"
+        android:text="Nueva Password"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="@+id/name_holder4"
+        app:layout_constraintTop_toBottomOf="@+id/new_username_txt" />
+
+    <TextView
+        android:id="@+id/configTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="176dp"
+        android:fontFamily="@font/cambay"
+        android:text="@string/configuration"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/new_name_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Nuevo Nombre"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/name_holder"
+        app:layout_constraintTop_toBottomOf="@+id/name_holder" />
+
+    <EditText
+        android:id="@+id/new_last_name_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Nuevo Apellido"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/name_holder2"
+        app:layout_constraintTop_toBottomOf="@+id/name_holder2" />
+
+    <EditText
+        android:id="@+id/new_username_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="Nuevo Usuario"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/name_holder4"
+        app:layout_constraintTop_toBottomOf="@+id/name_holder4" />
+
+    <EditText
+        android:id="@+id/new_password_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:hint="Nueva Contraseña"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/name_holder5"
+        app:layout_constraintTop_toBottomOf="@+id/name_holder5" />
+
+    <Button
+        android:id="@+id/name_change_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Cambiar"
+        app:layout_constraintBottom_toBottomOf="@+id/new_name_txt"
+        app:layout_constraintStart_toEndOf="@+id/new_name_txt"
+        app:layout_constraintTop_toTopOf="@+id/name_holder" />
+
+    <Button
+        android:id="@+id/last_name_change_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Cambiar"
+        app:layout_constraintBottom_toBottomOf="@+id/new_last_name_txt"
+        app:layout_constraintStart_toEndOf="@+id/new_last_name_txt"
+        app:layout_constraintTop_toTopOf="@+id/name_holder2" />
+
+    <Button
+        android:id="@+id/username_change_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Cambiar"
+        app:layout_constraintBottom_toBottomOf="@+id/new_username_txt"
+        app:layout_constraintStart_toEndOf="@+id/new_username_txt"
+        app:layout_constraintTop_toTopOf="@+id/name_holder4" />
+
+    <Button
+        android:id="@+id/password_change_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Cambiar"
+        app:layout_constraintBottom_toBottomOf="@+id/new_password_txt"
+        app:layout_constraintStart_toEndOf="@+id/new_password_txt"
+        app:layout_constraintTop_toTopOf="@+id/name_holder5" />
+</androidx.constraintlayout.widget.ConstraintLayout>

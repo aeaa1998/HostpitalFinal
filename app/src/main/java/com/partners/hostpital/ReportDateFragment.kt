@@ -39,19 +39,7 @@ class ReportDateFragment : Fragment() {
 
 
         val v = inflater.inflate(R.layout.fragment_report_date, container, false)
-        v.findViewById<ImageButton>(R.id.recipeVoice).setOnClickListener {
-            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-            startActivityForResult(intent, 10)
-        }
-        v.findViewById<ImageButton>(R.id.observationsVoice).setOnClickListener {
-            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-            startActivityForResult(intent, 20)
-        }
-        v.findViewById<ImageButton>(R.id.recipeVoice).isClickable = Paper.book().read<Int>(Constants.isDoctor, 0) == 1 && selectedDate?.status == 1
+
         recipe = v.findViewById(R.id.recipe_container)
         observations = v.findViewById(R.id.observations_container)
         role = v.findViewById(R.id.role_txt_selected_holder)
