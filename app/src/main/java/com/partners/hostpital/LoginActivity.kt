@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import com.partners.hostpital.api.API
 import com.partners.hostpital.helpers.Constants
@@ -23,7 +24,14 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        val createUserButton = findViewById<Button>(R.id.button2)
+        createUserButton.setOnClickListener{
+            val intent = Intent(this, CreateUserActivity::class.java)
+            startActivity(intent)
+        }
     }
+
     fun login(v: View){
         val service = API.request()
         val response = service.oauthToken("password", 2, "Y71lD1p1mGe5T0yBCm5UjSfW6tqEUIBqssZwZq8d", user_edit_txt.text.toString(), password_edit_txt.text.toString(), "*")

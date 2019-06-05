@@ -90,7 +90,7 @@
         android:layout_marginStart="46dp"
         android:layout_marginTop="60dp"
         android:ems="10"
-        android:hint="Aca va las observaciones"
+        android:hint="Aca van las observaciones"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="@+id/recipe_textarea"
         app:layout_constraintStart_toEndOf="@+id/role_txt_selected_holder"

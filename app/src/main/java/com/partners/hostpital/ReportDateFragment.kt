@@ -1,9 +1,12 @@
 package com.partners.hostpital
 
 import android.app.Activity.RESULT_OK
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import androidx.fragment.app.Fragment
@@ -13,11 +16,20 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.partners.hostpital.helpers.Constants
 import com.partners.hostpital.models.CalendarDatesResponse
 import io.paperdb.Paper
 import kotlinx.android.synthetic.main.fragment_do_report_fragment_date.*
 import java.util.*
+import java.util.jar.Manifest
+import android.Manifest.permission
+import android.Manifest.permission.RECORD_AUDIO
+import android.content.pm.PackageManager.PERMISSION_GRANTED
+import android.speech.SpeechRecognizer
+import android.util.Log
 
 
 class ReportDateFragment : Fragment() {
@@ -35,22 +47,8 @@ class ReportDateFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-
-
-
         val v = inflater.inflate(R.layout.fragment_report_date, container, false)
-        v.findViewById<ImageButton>(R.id.recipeVoice).setOnClickListener {
-            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-            startActivityForResult(intent, 10)
-        }
-        v.findViewById<ImageButton>(R.id.observationsVoice).setOnClickListener {
-            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-            startActivityForResult(intent, 20)
-        }
+
         v.findViewById<ImageButton>(R.id.recipeVoice).isClickable = Paper.book().read<Int>(Constants.isDoctor, 0) == 1 && selectedDate?.status == 1
         recipe = v.findViewById(R.id.recipe_container)
         observations = v.findViewById(R.id.observations_container)
@@ -72,24 +70,5 @@ class ReportDateFragment : Fragment() {
         return v
     }
 
-    @Override
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when(requestCode){
-            10 -> {
-                if (resultCode == RESULT_OK && data != null){
-                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                    recipe.setText(result[0])
-                }
-            }
-            20 -> {
-                if (resultCode == RESULT_OK && data != null){
-                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-                    observations.setText(result[0])
-                }
-            }
-
-        }
-    }
 
 }

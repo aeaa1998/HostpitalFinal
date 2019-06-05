@@ -1,8 +1,12 @@
 package com.partners.hostpital
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,7 +14,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import com.partners.hostpital.api.API
 import com.partners.hostpital.helpers.Constants
@@ -21,12 +27,19 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import android.speech.SpeechRecognizer
+import androidx.core.app.ActivityCompat
 
 
 class DoReportFragmentDate : Fragment() {
     var selectedDate: CalendarDatesResponse? = null
     lateinit var recipe: EditText
     lateinit var observations: EditText
+    lateinit var recordPermission: Array<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +49,56 @@ class DoReportFragmentDate : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val v = inflater.inflate(R.layout.fragment_do_report_fragment_date, container, false)
+
+        recordPermission = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.RECORD_AUDIO)
+
+        fun checkRecordPermission(): Boolean{
+            val result =
+                    ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+            return result
+        }
+
+        fun permissionRecord() {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+
+                if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(),
+                                Manifest.permission.RECORD_AUDIO)) {
+
+                } else {
+                    ActivityCompat.requestPermissions(requireActivity(),
+                            arrayOf(Manifest.permission.RECORD_AUDIO),1)
+                }
+
+            }
+        }
+
+        val v = inflater.inflate(R.layout.fragment_report_date, container, false)
+        v.findViewById<ImageButton>(R.id.recipeVoice).setOnClickListener {
+            checkRecordPermission()
+            permissionRecord()
+            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            try {
+                startActivityForResult(intent, 10)
+            }catch (e: ActivityNotFoundException){
+                Toast.makeText(this.context, "No se puede utilizar esta funcion en su dispositivo", Toast.LENGTH_LONG).show()
+            }
+        }
+        v.findViewById<ImageButton>(R.id.observationsVoice).setOnClickListener {
+            checkRecordPermission()
+            permissionRecord()
+            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            try {
+                startActivityForResult(intent, 20)
+            }catch (e: ActivityNotFoundException){
+                Toast.makeText(this.context, "No se puede utilizar esta funcion en su dispositivo", Toast.LENGTH_LONG).show()
+            }
+        }
+
         val b = v.findViewById<Button>(R.id.send_report)
         b.setOnClickListener {
             sendreport(v)
@@ -85,6 +147,37 @@ class DoReportFragmentDate : Fragment() {
             Toast.makeText(requireContext(), "Asegurese de llenar todos los datos.", Toast.LENGTH_LONG).show()
         }
     }
+
+
+    @Override
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode){
+            10 -> {
+                if (resultCode == Activity.RESULT_OK && data != null){
+                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                    recipe.setText(result[0])
+                }
+            }
+            20 -> {
+                if (resultCode == Activity.RESULT_OK && data != null){
+                    val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                    observations.setText(result[0])
+                }
+            }
+
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+             if (grantResults.isNotEmpty()) {
+                val audioAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED
+                if (audioAccepted) {
+                } else {
+                    Toast.makeText(activity, "permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
 
 }
